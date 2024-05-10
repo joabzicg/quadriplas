@@ -1,5 +1,4 @@
 import numpy as np
-import cmath
 
 #Frequência angular
 w = 2*np.pi*60 
