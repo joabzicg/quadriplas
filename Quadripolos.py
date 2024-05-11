@@ -26,6 +26,27 @@ LT1_LT2_LT3 = [dLT1_2_3*0.172,dLT1_2_3*2.18e-3,dLT1_2_3*0.0136e-6]
 LT4_LT5 = [dLT4_5*0.172,dLT4_5*2.18e-3,dLT4_5*0.0136e-6]
 LT6_ = [dLT6*0.172,dLT6*2.18e-3,dLT6*0.0136e-6]
 
+#MATRIZES LINHA DE TRANSMISSÃO
+def M_Linha(Linha):
+    #Admitância Y da linha (Y1=Y2)
+    Y = 1/(1/(1j*w*(Linha[2]/2)))
+    #Impedância Z da linha
+    Z = Linha[0]+(1j*w*Linha[1])
+    #Calculando matriz ABCD
+
+    A = 1+(Y*Z)
+    B = Z
+    C = (2*Y)+(Y*Y*Z)
+    D = 1+(Y*Z)
+    
+    matrizLinha = np.array(
+        [
+            [A,B],
+            [C,D]
+        ]
+    )
+    return matrizLinha
+    
 #Função carga em série
 def Carga (Z):
     A = 1
@@ -84,27 +105,6 @@ def Transformador(Transfp):
         ]
     )
     return matriz
-
-#MATRIZES LINHA DE TRANSMISSÃO
-def M_Linha(Linha):
-    #Admitância Y da linha (Y1=Y2)
-    Y = 1/(1/(1j*w*(Linha[2]/2)))
-    #Impedância Z da linha
-    Z = Linha[0]+(1j*w*Linha[1])
-    #Calculando matriz ABCD
-
-    A = 1+(Y*Z)
-    B = Z
-    C = (2*Y)+(Y*Y*Z)
-    D = 1+(Y*Z)
-    
-    matrizLinha = np.array(
-        [
-            [A,B],
-            [C,D]
-        ]
-    )
-    return matrizLinha
 
 #FUNÇÃO PARA REALIZAR MULTIPLICAÇÃO DE MATRIZES
 def Associar_Matriz_em_Cascata (matriz1, matriz2):
