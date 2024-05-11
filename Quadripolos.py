@@ -8,7 +8,7 @@ dLT6 = 90
 
 #PARÂMETROS DO TRANSFORMADOR T = [V1,V2,Rm,Xm]
 T1_p = [69000, 230000,4320,5050]
-T2_p= [230000,138000,3432000,505000]
+T2_p= [230000,138000,432000,505000]
 T3_p = [1000,69000,402000,607000]
 
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
@@ -21,10 +21,10 @@ Zc1 = 7900 + 1j*w*41
 Zc2= 1375.55 + 1j*w*7.05
 Zc3 = 620 + 1j*w*3.4
 
-#paramêtros da LINHA 1 2 3, 4,5 e 6 [R, L, C]:
+#paramêtros da LINHA '1_2_3', '4_5' e 6 [R, L, C]:
 LT1_LT2_LT3 = [dLT1_2_3*0.172,dLT1_2_3*2.18e-3,dLT1_2_3*0.0136e-6]
 LT4_LT5 = [dLT4_5*0.172,dLT4_5*2.18e-3,dLT4_5*0.0136e-6]
-LT6 = [dLT6*0.172,dLT6*2.18e-3,dLT6*0.0136e-6]
+LT6_ = [dLT6*0.172,dLT6*2.18e-3,dLT6*0.0136e-6]
 
 #Função carga em série
 def Carga (Z):
@@ -93,10 +93,10 @@ def M_Linha(Linha):
     Z = Linha[0]+(1j*w*Linha[1])
     #Calculando matriz ABCD
 
-    A = 1+Y*Z
+    A = 1+(Y*Z)
     B = Z
-    C = (2*Y+Y*Y*Z)
-    D = 1+Y*Z
+    C = (2*Y)+(Y*Y*Z)
+    D = 1+(Y*Z)
     
     matrizLinha = np.array(
         [
@@ -147,7 +147,7 @@ LT2 = M_Linha(LT1_LT2_LT3) #Segunda Linha
 LT3 = M_Linha(LT1_LT2_LT3) #Terceira Linha
 LT4 = M_Linha(LT4_LT5) #Quarta Linha
 LT5 = M_Linha(LT4_LT5) #Quinta Linha
-LT6 = M_Linha(LT6) #Sexta Linha
+LT6 = M_Linha(LT6_) #Sexta Linha
 Z1 = CargaDerivada(Zc1) #Cargas 1, 2 e 3
 Z2 = CargaDerivada(Zc2)
 Z3 = CargaDerivada(Zc3)
@@ -155,7 +155,7 @@ Z3 = CargaDerivada(Zc3)
 #CRIANDO BLOCOS DA LINHAS POR ASSOCIAÇÃO DE MATRIZES
 matriz1 = Associar_Matriz_em_Cascata (Zth,T1)
 paralel_LT1_2 = Matriz_Paralelo (LT1,LT2)
-paralel_LT1_2_3 = Matriz_Paralelo (paralel_LT1_2,LT2)
+paralel_LT1_2_3 = Matriz_Paralelo (paralel_LT1_2,LT3)
 matriz2 = Associar_Matriz_em_Cascata (matriz1, paralel_LT1_2_3) #Matriz Transmissão até a carga 1
 matriz3 = Associar_Matriz_em_Cascata (matriz2, Z1)
 matriz4 = Associar_Matriz_em_Cascata (matriz3, Matriz_Paralelo (LT4 ,LT5))
