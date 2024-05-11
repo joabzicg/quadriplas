@@ -93,11 +93,7 @@ def Transformador(Transfp):
 
     N = V1/V2 #Relação V1/V2
 
-    #A = (1/N)+(Y*Z1) #Construção da Matriz de transmissão
-    #B = N*(Z1 + Z2 + (Y*Z1*Z2))
-    #C = (1/N)*Y
-    #D = N*(1+(Y*Z2))
-    A = N*(1 + (Y*Z1))
+    A = N*(1 + (Y*Z1)) #Construção da Matriz de transmissão
     B = (Z1 + Z2 + Y*Z1*Z2)/N
     C = N*Y
     D = (1 + Y*Z2)/N
