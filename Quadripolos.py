@@ -172,8 +172,17 @@ Vg = 69e+3 #tensão na entrada do quadripolo
 Vc = (Vg*Zc3)/(matriz8[0][0]*Zc3 + matriz8[0][1]) #Tensão na carga 3 
 Ic = Vc/Zc3 #Corrente na carga 3
 
+#Forma retangular dos fasores
 print (f"Vcarga3 = {Vc:.2f} V") #imprimindo na tela
 print (f"Icarga3 = {Ic:.2f} A")
+
+#Forma polar dos fasores
+absVc, angVc = cmath.polar(Vc)
+absIc, angIc = cmath.polar(Ic)
+angVc = np.rad2deg(angVc)
+angIc = np.rad2deg(angIc)
+print(f"Vc = {absVc:.2f} ∠ {angVc:.2f}° V")
+print(f"Ic = {absIc:.2f} ∠ {angIc:.2f}° A")
 
 #Encontrando Vc e IC em Z1
 print("Tensão e corrente na carga Z1:")
@@ -181,8 +190,17 @@ Vg = 69e+3
 Vc = (Vg*Zc1)/(matriz2[0][0]*Zc1 + matriz2[0][1])
 Ic = Vc/ Zc1
 
+#Forma retangular dos fasores
 print(f"Vcarga1 = {Vc:.2f} V")
 print(f"Icarga1 + {Ic:.2f} A")
+
+#Forma polar dos fasores
+absVc, angVc = cmath.polar(Vc)
+absIc, angIc = cmath.polar(Ic)
+angVc = np.rad2deg(angVc)
+angIc = np.rad2deg(angIc)
+print(f"Vc = {absVc:.2f} ∠ {angVc:.2f}° V")
+print(f"Ic = {absIc:.2f} ∠ {angIc:.2f}° A")
 
 #Encontrando Vc e IC em Z2
 print("Tensão e corrente na carga Z2")
@@ -190,5 +208,14 @@ Vg = 69e+3
 Vc = (Vg*Zc2)/(matriz5[0][0]*Zc2 + matriz5[0][1])
 Ic = Vc/Zc2
 
+#Forma retangular dos fasores
 print(f"Vcarga2 = {Vc:.2f} V")
 print(f"Icarga2 = {Ic:.2f} A")
+
+#Forma polar dos fasores
+absVc, angVc = cmath.polar(Vc)
+absIc, angIc = cmath.polar(Ic)
+angVc = np.rad2deg(angVc)
+angIc = np.rad2deg(angIc)
+print(f"Vc = {absVc:.2f} ∠ {angVc:.2f}° V")
+print(f"Ic = {absIc:.2f} ∠ {angIc:.2f}° A")
