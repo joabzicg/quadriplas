@@ -7,9 +7,9 @@ dLT4_5 = 100
 dLT6 = 90
 
 #PARÂMETROS DO TRANSFORMADOR T = [V1,V2,Rm,Xm]
-T1_p = [69000, 226874.12,4320,5050]
-T2_p= [230000,133267.4,432000,505000]
-T3_p = [138000,68376.92,402000,607000]
+T1_p = [69000, 230000,4320,5050]
+T2_p= [230000,138000,432000,505000]
+T3_p = [138000,69000,402000,607000]
 
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
 Zf = 4 + 1j*0.38 #impedância
@@ -167,7 +167,7 @@ Fim_daL_Linha = Associar_Matriz_em_Cascata (matriz8, Z3)
 
 #CALCULANDO TENSÃO E CORRENTE NAS CARGAS
 #Encontrando Vc e IC em Z3
-print("o=> Tensão e corrente na carga Z3:")
+print("o=> Tensão e corrente em rms na carga Z3:")
 Vg = 69e+3 #tensão na entrada do quadripolo
 Vc = (Vg*Zc3)/(matriz8[0][0]*Zc3 + matriz8[0][1]) #Tensão na carga 3 
 Ic = Vc/Zc3 #Corrente na carga 3
@@ -187,7 +187,7 @@ print(f"Vcarga3 = {absVc:.2f} ∠ {angVc:.2f}° V")
 print(f"Icarga3 = {absIc:.2f} ∠ {angIc:.2f}° A\n")
 
 #Encontrando Vc e IC em Z1
-print("o=> Tensão e corrente na carga Z1:")
+print("o=> Tensão e corrente em rms na carga Z1:")
 Vg = 69e+3
 Vc = (Vg*Zc1)/(matriz2[0][0]*Zc1 + matriz2[0][1])
 Ic = Vc/ Zc1
@@ -207,7 +207,7 @@ print(f"Vcarga1 = {absVc:.2f} ∠ {angVc:.2f}° V")
 print(f"Icarga1 = {absIc:.2f} ∠ {angIc:.2f}° A\n")
 
 #Encontrando Vc e IC em Z2
-print("o=> Tensão e corrente na carga Z2")
+print("o=> Tensão e corrente em rms na carga Z2")
 Vg = 69e+3
 Vc = (Vg*Zc2)/(matriz5[0][0]*Zc2 + matriz5[0][1])
 Ic = Vc/Zc2
@@ -225,4 +225,3 @@ angVc = np.rad2deg(angVc)
 angIc = np.rad2deg(angIc)
 print(f"Vcarga2 = {absVc:.2f} ∠ {angVc:.2f}° V")
 print(f"Icarga2 = {absIc:.2f} ∠ {angIc:.2f}° A")
-
