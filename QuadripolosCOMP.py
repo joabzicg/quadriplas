@@ -12,13 +12,12 @@ T2_p= [230000,138000,432000,505000]
 T3_p = [138000,69000,402000,607000]
 
 
-
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
 Zf = 4 + 1j*0.38 #impedância
 
 w = 2*np.pi*60 #frequência angular em rad/s
 
-#PARÂMETROS DOS REATORES  (H) 
+#PARÂMETROS DOS REATORES  [Ohms] 
 zReator1 = 1j*w*4.717
 zReator2 = 1j*w*1.753
 zReator3  = 1j*w*6.893
