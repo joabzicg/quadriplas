@@ -7,9 +7,9 @@ dLT4_5 = 100
 dLT6 = 90
 
 #PARÂMETROS DO TRANSFORMADOR T = [V1,V2,Rm,Xm]
-T1_p = [69000, 230000,4320,5050]
-T2_p= [230000,138000,432000,505000]
-T3_p = [138000,69000,402000,607000]
+T1_p = [69000, 501285,4320,5050]
+T2_p= [230000,108325,432000,505000]
+T3_p = [138000,41020,402000,607000]
 
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
 Zf = 4 + 1j*0.38 #impedância
@@ -225,4 +225,3 @@ angVc = np.rad2deg(angVc)
 angIc = np.rad2deg(angIc)
 print(f"Vcarga2 = {absVc:.2f} ∠ {angVc:.2f}° V")
 print(f"Icarga2 = {absIc:.2f} ∠ {angIc:.2f}° A")
-
