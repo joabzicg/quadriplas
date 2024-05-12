@@ -11,6 +11,12 @@ T1_p = [69000, 230000,4320,5050]
 T2_p= [230000,138000,432000,505000]
 T3_p = [138000,69000,402000,607000]
 
+
+#PARÂMETROS DOS REATORES  (H) 
+Reator1 = 30
+Reator2 = 30
+Reator3  = 30
+
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
 Zf = 4 + 1j*0.38 #impedância
 
@@ -149,6 +155,7 @@ LT4 = M_Linha(LT4_LT5) #Quarta Linha
 LT5 = M_Linha(LT4_LT5) #Quinta Linha
 LT6 = M_Linha(LT6_) #Sexta Linha
 Z1 = CargaDerivada(Zc1) #Cargas 1, 2 e 3
+Reator1 = CargaDerivada(Zc2)
 Z2 = CargaDerivada(Zc2)
 Z3 = CargaDerivada(Zc3)
 
@@ -157,6 +164,7 @@ matriz1 = Associar_Matriz_em_Cascata (Zth,T1)
 paralel_LT1_2 = Matriz_Paralelo (LT1,LT2)
 paralel_LT1_2_3 = Matriz_Paralelo (paralel_LT1_2,LT3)
 matriz2 = Associar_Matriz_em_Cascata (matriz1, paralel_LT1_2_3) #Matriz Transmissão até a carga 1
+matrizI = Associar_Matriz_em_Cascata 
 matriz3 = Associar_Matriz_em_Cascata (matriz2, Z1)
 matriz4 = Associar_Matriz_em_Cascata (matriz3, Matriz_Paralelo (LT4 ,LT5))
 matriz5 = Associar_Matriz_em_Cascata (matriz4, T2) #Matriz Transmissão até a carga 2
