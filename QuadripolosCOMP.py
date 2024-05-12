@@ -12,15 +12,16 @@ T2_p= [230000,138000,432000,505000]
 T3_p = [138000,69000,402000,607000]
 
 
-#PARÂMETROS DOS REATORES  (H) 
-Reator1 = 30
-Reator2 = 30
-Reator3  = 30
 
 #IMPEDÂNCIA SÉRIE DE THÉVENIN
 Zf = 4 + 1j*0.38 #impedância
 
 w = 2*np.pi*60 #frequência angular em rad/s
+
+#PARÂMETROS DOS REATORES  (H) 
+zReator1 = 1j*w*4.717
+zReator2 = 1j*w*1.753
+zReator3  = 1j*w*6.893
 
 #CARGAS EM DERIVAÇÃO
 Zc1 = 7900 + 1j*w*41
@@ -154,8 +155,10 @@ LT3 = M_Linha(LT1_LT2_LT3) #Terceira Linha
 LT4 = M_Linha(LT4_LT5) #Quarta Linha
 LT5 = M_Linha(LT4_LT5) #Quinta Linha
 LT6 = M_Linha(LT6_) #Sexta Linha
+Reator1 = CargaDerivada(zReator1)
+Reator2 = CargaDerivada(zReator2)
+Reator3 = CargaDerivada(zReator3)
 Z1 = CargaDerivada(Zc1) #Cargas 1, 2 e 3
-Reator1 = CargaDerivada(Zc2)
 Z2 = CargaDerivada(Zc2)
 Z3 = CargaDerivada(Zc3)
 
@@ -163,21 +166,24 @@ Z3 = CargaDerivada(Zc3)
 matriz1 = Associar_Matriz_em_Cascata (Zth,T1)
 paralel_LT1_2 = Matriz_Paralelo (LT1,LT2)
 paralel_LT1_2_3 = Matriz_Paralelo (paralel_LT1_2,LT3)
-matriz2 = Associar_Matriz_em_Cascata (matriz1, paralel_LT1_2_3) #Matriz Transmissão até a carga 1
-matrizI = Associar_Matriz_em_Cascata 
-matriz3 = Associar_Matriz_em_Cascata (matriz2, Z1)
+matriz2 = Associar_Matriz_em_Cascata (matriz1, paralel_LT1_2_3) 
+matrizR1 = Associar_Matriz_em_Cascata (matriz2, Reator1) #Matriz Transmissão até a carga 1
+matriz3 = Associar_Matriz_em_Cascata (matrizR1, Z1)
 matriz4 = Associar_Matriz_em_Cascata (matriz3, Matriz_Paralelo (LT4 ,LT5))
-matriz5 = Associar_Matriz_em_Cascata (matriz4, T2) #Matriz Transmissão até a carga 2
-matriz6 = Associar_Matriz_em_Cascata (matriz5, Z2)
+matriz5 = Associar_Matriz_em_Cascata (matriz4, T2) 
+matrizR2 = Associar_Matriz_em_Cascata (matriz5, Reator2) #Matriz Transmissão até a carga 2
+matriz6 = Associar_Matriz_em_Cascata (matrizR2, Z2)
 matriz7 = Associar_Matriz_em_Cascata (matriz6, LT6)
-matriz8 = Associar_Matriz_em_Cascata (matriz7, T3) #Matriz Transmissão até a carga 3
-Fim_daL_Linha = Associar_Matriz_em_Cascata (matriz8, Z3)
+matriz8 = Associar_Matriz_em_Cascata (matriz7, T3) 
+matrizR3 = Associar_Matriz_em_Cascata (matriz8, Reator3) #Matriz Transmissão até a carga 3
+Fim_daL_Linha = Associar_Matriz_em_Cascata (matrizR3, Z3)
+
 
 #CALCULANDO TENSÃO E CORRENTE NAS CARGAS
 #Encontrando Vc e IC em Z3
 print("o=> Tensão e corrente em rms na carga Z3:")
 Vg = 69e+3 #tensão na entrada do quadripolo
-Vc = (Vg*Zc3)/(matriz8[0][0]*Zc3 + matriz8[0][1]) #Tensão na carga 3 
+Vc = (Vg*Zc3)/(matrizR3[0][0]*Zc3 + matrizR3[0][1]) #Tensão na carga 3 
 Ic = Vc/Zc3 #Corrente na carga 3
 
 #Forma retangular dos fasores
@@ -197,7 +203,7 @@ print(f"Icarga3 = {absIc:.2f} ∠ {angIc:.2f}° A\n")
 #Encontrando Vc e IC em Z1
 print("o=> Tensão e corrente em rms na carga Z1:")
 Vg = 69e+3
-Vc = (Vg*Zc1)/(matriz2[0][0]*Zc1 + matriz2[0][1])
+Vc = (Vg*Zc1)/(matrizR1[0][0]*Zc1 + matrizR1[0][1])
 Ic = Vc/ Zc1
 
 #Forma retangular dos fasores
@@ -217,7 +223,7 @@ print(f"Icarga1 = {absIc:.2f} ∠ {angIc:.2f}° A\n")
 #Encontrando Vc e IC em Z2
 print("o=> Tensão e corrente em rms na carga Z2")
 Vg = 69e+3
-Vc = (Vg*Zc2)/(matriz5[0][0]*Zc2 + matriz5[0][1])
+Vc = (Vg*Zc2)/(matrizR2[0][0]*Zc2 + matrizR2[0][1])
 Ic = Vc/Zc2
 
 #Forma retangular dos fasores
