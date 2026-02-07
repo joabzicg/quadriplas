@@ -1,2 +1,2 @@
-UFCG - Engenharia Elétrica - Circuitos Elétricos II 
-Simulação de Sistemas Elétricos por Quadripolos em Python
+UFCG — Electrical Engineering — Electric Circuits II
+Simulation of Electrical Systems Using Two-Port Networks in Python
